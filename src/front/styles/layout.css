@@ -1,0 +1,41 @@
+.layout-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .layout-header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .layout-title {
+    margin: 0;
+  }
+  
+  .layout-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .layout-link {
+    color: #61dafb;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .layout-main {
+    flex-grow: 1;
+    padding: 2rem;
+  }
+  
+  .layout-footer {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 1rem;
+  }
+  

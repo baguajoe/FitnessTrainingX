@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api
-from api.admin import setup_admin
+from api.admin import init_admin
 from api.commands import setup_commands
 
 # from models import Person
@@ -32,7 +32,7 @@ MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 # add the admin
-setup_admin(app)
+init_admin(app)
 
 # add the admin
 setup_commands(app)

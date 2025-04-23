@@ -1,17 +1,37 @@
-  
-import os
+# src/api/admin.py
+
 from flask_admin import Admin
-from .models import db, User
 from flask_admin.contrib.sqla import ModelView
+from api.models import db, User
 
-def setup_admin(app):
-    app.secret_key = os.environ.get('FLASK_APP_KEY', 'sample key')
-    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    admin = Admin(app, name='4Geeks Admin', template_mode='bootstrap3')
 
-    
-    # Add your models here, for example this is how we add a the User model to the admin
-    admin.add_view(ModelView(User, db.session))
+# Optional: Customize how the User model appears in the Admin UI
+class UserAdmin(ModelView):
+    column_exclude_list = ['password']          # Hide password column from list view
+    form_excluded_columns = ['password']        # Hide password field from forms
 
-    # You can duplicate that line to add mew models
-    # admin.add_view(ModelView(YourModelName, db.session))
+    can_create = True
+    can_edit = True
+    can_delete = True
+
+    column_searchable_list = ['email', 'username', 'first_name', 'last_name']
+    column_filters = ['role']
+    column_list = ['id', 'email', 'username', 'first_name', 'last_name', 'role']  # Show these fields in the table
+
+    form_widget_args = {
+        'password': {
+            'disabled': True
+        }
+    }
+
+
+# Initialize Flask-Admin with app and models
+def init_admin(app):
+    admin = Admin(app, name='Fitness Trainer Admin', template_mode='bootstrap4')
+
+    # Add all views
+    admin.add_view(UserAdmin(User, db.session))
+
+    # Optional: Add more models here
+    # admin.add_view(ModelView(WorkoutPlan, db.session))
+    # admin.add_view(ModelView(ClientProgress, db.session))
